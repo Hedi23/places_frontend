@@ -14,16 +14,6 @@ class PartnerSerializer(serializers.ModelSerializer):
         model = Partner
         fields = '__all__'
 
-# # BranchDetail Serializer
-# class BranchDetailSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Branch
-#         fields = '__all__'
 
 
-# PartnerDetail Serializer
-class PartnerDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Branch
-        fields = '__all__'
-        lookup_field = 'partner_short_name'
+

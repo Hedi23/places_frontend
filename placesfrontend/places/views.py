@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .models import Branch, Partner
-from .serializers import BranchSerializer, PartnerSerializer, PartnerDetailSerializer
+from .serializers import BranchSerializer, PartnerSerializer
 
 # Branch Viewset
 class BranchViewSet(viewsets.ModelViewSet):
@@ -41,11 +41,15 @@ class PartnerViewSet(viewsets.ModelViewSet):
     model = Partner
 
 class PartnerDetailViewSet(viewsets.ModelViewSet):
-
-    serializer_class = PartnerDetailSerializer
-    lookup_field = 'partner_short_name'
+    serializer_class = BranchSerializer
 
     # def get_queryset(self):
-    #     partner = self.request.partner.partner_short_name
-    #     print(partner)
-    #     return Branch.objects.filter(partner_short_name=partner)
+    #     user = self.request.user
+    #     partner = Branch.objects.filter(partner_short_name=self.kwargs['partner_short_name'])
+    #     return partner
+    
+    def retrieve(self, request, pk=None):
+        queryset = Branch.objects.all()
+        partner = get_object_or_404(queryset, pk=partner_short_name)
+        serializer = BranchSerializer(partner)
+        return Response(serializer.data)

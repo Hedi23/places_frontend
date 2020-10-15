@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { getPartner } from "../../actions/partners";
+import { getPartner } from "../../actions/partner";
 
 export class PartnerDetail extends Component {
   static propTypes = {
