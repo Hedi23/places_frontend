@@ -7,6 +7,10 @@ class BranchSerializer(serializers.ModelSerializer):
         model = Branch
         fields = '__all__'
 
+class BranchImportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = ['display_name', 'updated']
 
 # Partner Serializer
 class PartnerSerializer(serializers.ModelSerializer):

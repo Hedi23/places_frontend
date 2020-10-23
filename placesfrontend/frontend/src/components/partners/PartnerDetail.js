@@ -17,7 +17,7 @@ export class PartnerDetail extends Component {
   render() {
     return (
       <Fragment>
-        <h3>Parnter Auswahl</h3>
+        <h3>Parnter Ansicht</h3>
         <p>{this.props.match.params.partner_short_name}</p>
         <table className="table table-striped">
           <thead>

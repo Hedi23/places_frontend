@@ -7,7 +7,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from .models import Branch, Partner
-from .serializers import BranchSerializer, PartnerSerializer
+from .serializers import BranchSerializer, PartnerSerializer, BranchImportSerializer
 from rest_framework.decorators import api_view
 
 
@@ -28,6 +28,18 @@ def branch_count(request):
         branchcount = 0
         branchcount = Branch.objects.values('branch_short_name').distinct().count()
         return JsonResponse(branchcount, safe=False)
+
+def latest_import(request, contributor):
+
+        try:
+            max_org_updated = Branch.objects.filter(contributor = contributor).latest('updated').updated
+            lastestorgimport = Branch.objects.values('display_name', 'updated').filter(updated=max_org_updated).distinct()
+        except Branch.DoesNotExist:
+            return JsonResponse({'message': 'The branch does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'GET':
+            lastestorgimport_serializer = BranchImportSerializer(lastestorgimport, many=True)
+            return JsonResponse(lastestorgimport_serializer.data, safe=False)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def branch_detail(request, branch_short_name):

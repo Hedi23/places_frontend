@@ -50,15 +50,3 @@ export const getPlaceFromOrg = (branch_short_name) => (dispatch) => {
       })
       .catch((err) => console.log(err));
   };
-
-  export const getCountPlaces = () => (dispatch) => {
-    axios
-      .get(`/api/countplaces`)
-      .then((res) => {
-        dispatch({
-          type: GET_COUNT_PLACES,
-          payload: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
-  };

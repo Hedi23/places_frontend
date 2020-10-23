@@ -5,7 +5,6 @@ const initialState = {
   placefromorg: [],
   placefrombra: [],
   placefromgeo: [],
-  countplaces: ''
 };
 
 export default function (state = initialState, action) {
@@ -29,11 +28,6 @@ export default function (state = initialState, action) {
         return {
           ...state,
           placefromgeo: action.payload,
-        };
-    case GET_COUNT_PLACES:
-        return {
-            ...state,
-            countplaces: action.payload,
         };
     default:
       return state;
