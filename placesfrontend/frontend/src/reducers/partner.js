@@ -1,7 +1,7 @@
 import { GET_PARTNER } from "../actions/types.js";
 
 const initialState = {
-  places: [],
+  partner: [],
 };
 
 export default function (state = initialState, action) {
@@ -10,9 +10,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         partner: action.payload,
-        partner: state.places.filter(
-          (place) => place.branch_short_name == action.payload
-        ),
       };
     default:
       return state;

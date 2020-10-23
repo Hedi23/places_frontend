@@ -6,17 +6,19 @@ import { getPartner } from "../../actions/partner";
 
 export class PartnerDetail extends Component {
   static propTypes = {
-    places: PropTypes.array.isRequired,
+    partner: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
-    this.props.getPartner(this.props.match.params.partner_short_name);
+    const partner_short_name = this.props.match.params.partner_short_name;
+    this.props.getPartner(partner_short_name);
   }
 
   render() {
     return (
       <Fragment>
         <h3>Parnter Auswahl</h3>
+        <p>{this.props.match.params.partner_short_name}</p>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -29,17 +31,16 @@ export class PartnerDetail extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.places.map((place, index) => (
-              <tr key={place.branch_short_name + "-" + index}>
-                <td>{place.branch_short_name}</td>
-                <td>{place.partner_short_name}</td>
-                <td>{place.branch_number}</td>
-                <td>{place.street}</td>
-                <td>{place.zip_code}</td>
+            {this.props.partner.map((partnerplace, index) => (
+              <tr key={partnerplace.branch_short_name + "-" + index}>
+                <td>{partnerplace.branch_short_name}</td>
+                <td>{partnerplace.partner_short_name}</td>
+                <td>{partnerplace.branch_number}</td>
+                <td>{partnerplace.street}</td>
+                <td>{partnerplace.zip_code}</td>
                 <td>
                   <Link
-                    to={"/places/" + place.branch_short_name}
-                    className="nav-link"
+                    to={`/places/${partnerplace.branch_short_name}/${partnerplace.contributor}`}
                   >
                     Update
                   </Link>
@@ -54,7 +55,7 @@ export class PartnerDetail extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  places: state.places.places,
+  partner: state.partner.partner,
 });
 
 export default connect(mapStateToProps, { getPartner })(PartnerDetail);

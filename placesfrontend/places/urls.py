@@ -1,9 +1,13 @@
-from rest_framework import routers
-from .views import BranchViewSet, PartnerViewSet, PartnerDetailViewSet
+#urls.py
 
-router = routers.DefaultRouter()
-router.register('api/places', BranchViewSet, 'places')
-router.register('api/partners', PartnerViewSet, 'partners')
-router.register('api/partners/<str:partner_short_name>/', PartnerDetailViewSet, 'partner')
+from django.conf.urls import url
+from places import views
 
-urlpatterns = router.urls
+urlpatterns = [
+    url(r'^api/places$', views.branch_list),
+    url(r'^api/countplaces$', views.branch_count),
+    url(r'^api/partners$', views.partner_list),
+    url(r'^api/partners/(?P<partner_short_name>[0-9]+)$', views.partner_detail),
+    url(r'^api/places/(?P<branch_short_name>[0-9]+)$', views.branch_detail),
+    url(r'^api/places/(?P<branch_short_name>[0-9]+)/(?P<contributor>\D+)$' , views.branch_from_contributor),
+]

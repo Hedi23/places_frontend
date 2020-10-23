@@ -6,7 +6,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h5>DASHBOARD</h5>
+        <h3>DASHBOARD</h3>
         <br />
         <p>Anzahl Places im System: </p>
         <p>Letzter ORG Import: </p>

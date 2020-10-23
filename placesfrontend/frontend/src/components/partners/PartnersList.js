@@ -32,7 +32,6 @@ export class PartnersList extends Component {
                 <td>
                   <Link
                     to={`/partners/${partner.partner_short_name}`}
-                    className="nav-link"
                   >
                     {partner.display_name}
                   </Link>

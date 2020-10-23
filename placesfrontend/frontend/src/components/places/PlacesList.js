@@ -38,7 +38,6 @@ export class PlacesList extends Component {
                 <td>
                   <Link
                     to={"/places/" + place.branch_short_name}
-                    className="nav-link"
                   >
                     Update
                   </Link>

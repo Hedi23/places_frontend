@@ -5,7 +5,7 @@ import { GET_PLACES } from "./types";
 // GET Places
 export const getPlaces = () => (dispatch) => {
   axios
-    .get("/api/places/")
+    .get("/api/places")
     .then((res) => {
       dispatch({
         type: GET_PLACES,

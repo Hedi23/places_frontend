@@ -1,55 +1,75 @@
+#views.py
+
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
+from rest_framework import status
+
 from .models import Branch, Partner
 from .serializers import BranchSerializer, PartnerSerializer
-
-# Branch Viewset
-class BranchViewSet(viewsets.ModelViewSet):
-    queryset = Branch.objects.all()[:10]
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = BranchSerializer # for list view
-    model = Branch
-
-
-    # Anzahl Places im System
-    # def get_num_places (self):
-    #     numPlaces = Branch.objects.values('branch_short_name').distinct().count()
-    #     return numPlaces
-
-    # def partnerPlaces(request, id):
-    #     try:
-    #         partnerPlaces = Places.objects.filter(partner_short_name=id)
-    #         serializer = PartnerSerializer(partner)
-    #         place_data = serializer.data
-    #     except Place.DoesNotExist:
-    #         place_data = {}
-    #     # The magic happens in our _react_render helper function
-    #     return _react_render({'place': place}, request)
+from rest_framework.decorators import api_view
 
 
 
-# Partner Viewset
-class PartnerViewSet(viewsets.ModelViewSet):
-    queryset = Partner.objects.all()[:10]
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = PartnerSerializer
-    # detail_serializer_class = PartnerDetailSerializer
-    model = Partner
+@api_view(['GET', 'POST', 'DELETE'])
+def branch_list(request):
+    # GET list of branchs, POST a new branch, DELETE all branchs
 
-class PartnerDetailViewSet(viewsets.ModelViewSet):
-    serializer_class = BranchSerializer
+    if request.method == 'GET':
+        branchlist = Branch.objects.all()[:10]
+        branchlist_serializer = BranchSerializer(branchlist, many=True)
+        return JsonResponse(branchlist_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     partner = Branch.objects.filter(partner_short_name=self.kwargs['partner_short_name'])
-    #     return partner
-    
-    def retrieve(self, request, pk=None):
-        queryset = Branch.objects.all()
-        partner = get_object_or_404(queryset, pk=partner_short_name)
-        serializer = BranchSerializer(partner)
-        return Response(serializer.data)
+def branch_count(request):
+
+    if request.method == 'GET':
+        branchcount = 0
+        branchcount = Branch.objects.values('branch_short_name').distinct().count()
+        return JsonResponse(branchcount, safe=False)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def branch_detail(request, branch_short_name):
+    # find branch by branch_short_name (id)
+    try:
+        branch = Branch.objects.filter(branch_short_name=branch_short_name)
+    except Branch.DoesNotExist:
+        return JsonResponse({'message': 'The branch does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        branch_serializer = BranchSerializer(branch, many=True)
+        return JsonResponse(branch_serializer.data, safe=False)
+
+def branch_from_contributor(request, branch_short_name, contributor):
+    # find branch by branch_short_name (id)
+    try:
+        branch = Branch.objects.filter(branch_short_name=branch_short_name, contributor=contributor)
+    except Branch.DoesNotExist:
+        return JsonResponse({'message': 'The branch does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        branch_serializer = BranchSerializer(branch, many=True)
+        return JsonResponse(branch_serializer.data, safe=False)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def partner_list(request):
+    # GET list of partners, POST a new partner, DELETE all partners
+
+     if request.method == 'GET':
+        partners = Partner.objects.all()[:10]
+        partners_serializer = PartnerSerializer(partners, many=True)
+        return JsonResponse(partners_serializer.data, safe=False)
+        # 'safe=False' for objects serialization
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def partner_detail(request, partner_short_name):
+    # find partner places by partner_short_name (id)
+    try:
+        partner = Branch.objects.filter(partner_short_name = partner_short_name)[:10]
+    except Branch.DoesNotExist:
+        return JsonResponse({'message': 'The partner does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        partner_serializer = BranchSerializer(partner, many=True)
+        return JsonResponse(partner_serializer.data, safe=False)

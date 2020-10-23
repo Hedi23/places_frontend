@@ -5,7 +5,7 @@ import { GET_PARTNERS } from "./types";
 // GET Partners
 export const getPartners = () => (dispatch) => {
   axios
-    .get("/api/partners/")
+    .get("/api/partners")
     .then((res) => {
       dispatch({
         type: GET_PARTNERS,
