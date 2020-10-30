@@ -53,6 +53,10 @@ def branch_detail(request, branch_short_name):
         branch_serializer = BranchSerializer(branch, many=True)
         return JsonResponse(branch_serializer.data, safe=False)
 
+    elif request.method == 'DELETE':
+        branch.delete()
+        return JsonResponse({'message': 'Branch was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
 def branch_from_contributor(request, branch_short_name, contributor):
     # find branch by branch_short_name (id)
     try:

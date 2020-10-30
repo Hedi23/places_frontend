@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getPlacesCount, getLatestOrgImport, getLatestBraImport, getLatestGeoImport } from "../../actions/places";
+import { getPlacesCount, getLatestImport } from "../../actions/places";
+import { GET_LATEST_ORG_IMPORT, GET_LATEST_BRA_IMPORT, GET_LATEST_GEO_IMPORT} from "../../actions/types";
+
 
 export class Dashboard extends Component {
   static propTypes = {
@@ -13,9 +15,10 @@ export class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getPlacesCount();
-    this.props.getLatestOrgImport();
-    this.props.getLatestBraImport();
-    this.props.getLatestGeoImport();
+    this.props.getLatestImport(GET_LATEST_ORG_IMPORT, 'org-importer');
+    
+    this.props.getLatestImport(GET_LATEST_BRA_IMPORT, 'bra-importer');
+    this.props.getLatestImport(GET_LATEST_GEO_IMPORT, 'google-geocoding');
   }
 
   render() {
@@ -54,4 +57,4 @@ const mapStateToProps = (state) => ({
   latestgeoimport: state.places.latestgeoimport
 });
 
-export default connect(mapStateToProps, { getPlacesCount, getLatestOrgImport, getLatestBraImport, getLatestGeoImport})(Dashboard);
+export default connect(mapStateToProps, { getPlacesCount, getLatestImport})(Dashboard);

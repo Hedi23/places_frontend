@@ -21,18 +21,13 @@ export class PartnersList extends Component {
             <tr>
               <th>Partner</th>
               <th>ID</th>
-              <th>Anzahl Filialen</th>
-              <th>Letzter Import</th>
-              <th>Letzter PAU Export</th>
             </tr>
           </thead>
           <tbody>
             {this.props.partners.map((partner, index) => (
               <tr key={partner.partner_short_name + "-" + index}>
                 <td>
-                  <Link
-                    to={`/partners/${partner.partner_short_name}`}
-                  >
+                  <Link to={`/partners/${partner.partner_short_name}`}>
                     {partner.display_name}
                   </Link>
                 </td>

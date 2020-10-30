@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getPlace } from "../../actions/place";
-import { getPlaceFromOrg, getPlaceFromBra, getPlaceFromGeo } from "../../actions/place";
+import {
+  getPlaceFromOrg,
+  getPlaceFromBra,
+  getPlaceFromGeo,
+} from "../../actions/place";
 
 export class PlaceDetail extends Component {
   static propTypes = {
@@ -21,14 +25,30 @@ export class PlaceDetail extends Component {
     this.props.getPlaceFromGeo(branch_short_name);
   }
 
-
   render() {
     return (
       <Fragment>
         <h3>Place Ansicht</h3>
-        <p>
-             Place ID: {this.props.match.params.branch_short_name}
-            </p>
+        <p>Place ID: {this.props.match.params.branch_short_name}</p>
+        <div className="right floated content">
+          {" "}
+          <Link
+            to={`/delete/${this.props.match.params.branch_short_name}`}
+            className="small ui negative basic button"
+            variant="warning"
+          >
+            Delete
+          </Link>
+        </div>
+        <div className="right floated content">
+          {" "}
+          <Link
+            to={`/update/${this.props.match.params.branch_short_name}`}
+            className="small ui negative basic button"
+          >
+            Update
+          </Link>
+        </div>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -63,30 +83,6 @@ export class PlaceDetail extends Component {
                 <td>{place.zip_code}</td>
               </tr>
             ))}
-              <tr>
-                <td></td>
-                <td>
-                  <Link
-                    to={""}
-                  >
-                    Update
-                  </Link>
-                </td>
-                <td>
-                  <Link
-                    to={""}
-                  >
-                    Update
-                  </Link>
-                </td>
-                <td>
-                  <Link
-                    to={""}
-                  >
-                    Update
-                  </Link>
-                </td>
-              </tr>
           </tbody>
         </table>
       </Fragment>
@@ -101,4 +97,9 @@ const mapStateToProps = (state) => ({
   placefromgeo: state.place.placefromgeo,
 });
 
-export default connect(mapStateToProps, { getPlace, getPlaceFromOrg, getPlaceFromBra, getPlaceFromGeo })(PlaceDetail);
+export default connect(mapStateToProps, {
+  getPlace,
+  getPlaceFromOrg,
+  getPlaceFromBra,
+  getPlaceFromGeo,
+})(PlaceDetail);

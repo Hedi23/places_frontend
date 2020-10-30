@@ -1,4 +1,12 @@
-import { GET_PLACE, GET_PLACE_FROM_ORG, GET_PLACE_FROM_BRA, GET_PLACE_FROM_GEO} from "../actions/types.js";
+import {
+  GET_PLACE,
+  GET_PLACE_FROM_ORG,
+  GET_PLACE_FROM_BRA,
+  GET_PLACE_FROM_GEO,
+  DELETE_PLACE,
+} from "../actions/types.js";
+
+import _ from "lodash";
 
 const initialState = {
   place: [],
@@ -15,20 +23,22 @@ export default function (state = initialState, action) {
         place: action.payload,
       };
     case GET_PLACE_FROM_ORG:
-        return {
-          ...state,
-          placefromorg: action.payload,
-        };
+      return {
+        ...state,
+        placefromorg: action.payload,
+      };
     case GET_PLACE_FROM_BRA:
-        return {
-          ...state,
-          placefrombra: action.payload,
-        };
+      return {
+        ...state,
+        placefrombra: action.payload,
+      };
     case GET_PLACE_FROM_GEO:
-        return {
-          ...state,
-          placefromgeo: action.payload,
-        };
+      return {
+        ...state,
+        placefromgeo: action.payload,
+      };
+    case DELETE_PLACE:
+      return _.omit(state, action.payload);
     default:
       return state;
   }
