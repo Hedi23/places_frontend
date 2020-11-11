@@ -10,5 +10,5 @@ export default combineReducers({
   places: placesReducer,
   partners: partnersReducer,
   partner: partnerReducer,
-  place: placeReducer
+  place: placeReducer,
 });

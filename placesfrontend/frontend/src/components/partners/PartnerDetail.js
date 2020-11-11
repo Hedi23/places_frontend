@@ -17,7 +17,7 @@ export class PartnerDetail extends Component {
   render() {
     return (
       <Fragment>
-        <h3>Parnter Ansicht</h3>
+        <h3>Partner Ansicht</h3>
         <p>{this.props.match.params.partner_short_name}</p>
         <table className="table table-striped">
           <thead>
@@ -27,24 +27,22 @@ export class PartnerDetail extends Component {
               <th>Branch ID</th>
               <th>Street</th>
               <th>PLZ</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.props.partner.map((partnerplace, index) => (
               <tr key={partnerplace.branch_short_name + "-" + index}>
-                <td>{partnerplace.branch_short_name}</td>
+                <td>
+                  <Link
+                    to={`/places/${partnerplace.partner_short_name}/${partnerplace.branch_short_name}`}
+                  >
+                    {partnerplace.branch_short_name}
+                  </Link>
+                </td>
                 <td>{partnerplace.partner_short_name}</td>
                 <td>{partnerplace.branch_number}</td>
                 <td>{partnerplace.street}</td>
                 <td>{partnerplace.zip_code}</td>
-                <td>
-                  <Link
-                    to={`/places/${partnerplace.branch_short_name}/${partnerplace.contributor}`}
-                  >
-                    Update
-                  </Link>
-                </td>
               </tr>
             ))}
           </tbody>

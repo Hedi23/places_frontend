@@ -2,12 +2,12 @@ import axios from "axios";
 
 import {
   GET_PLACE,
+  ADD_PLACE,
   DELETE_PLACE,
   GET_PLACE_FROM_ORG,
   GET_PLACE_FROM_BRA,
   GET_PLACE_FROM_GEO,
 } from "./types";
-import history from "../history";
 
 // GET Place
 export const getPlace = (branch_short_name) => (dispatch) => {
@@ -22,18 +22,27 @@ export const getPlace = (branch_short_name) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// DELETE Place
-export const deletePlace = (branch_short_name) => (dispatch) => {
+// ADD Place
+export const addPlace = (formValues) => (dispatch) => {
   axios
-    .delete(`/api/places/${branch_short_name}`)
+    .post(`/api/places`, { ...formValues })
     .then((res) => {
       dispatch({
-        type: DELETE_PLACE,
+        type: ADD_PLACE,
         payload: res.data,
       });
     })
     .catch((err) => console.log(err));
-  history.push("/");
+  dispatch(reset("placeForm"));
+};
+
+// DELETE Place
+export const deletePlace = (branch_short_name) => (dispatch) => {
+  axios.delete(`/api/places/${branch_short_name}`);
+  dispatch({
+    type: DELETE_PLACE,
+    payload: branch_short_name,
+  });
 };
 
 export const getPlaceFromOrg = (branch_short_name) => (dispatch) => {

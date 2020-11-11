@@ -3,6 +3,7 @@ import {
   GET_PLACE_FROM_ORG,
   GET_PLACE_FROM_BRA,
   GET_PLACE_FROM_GEO,
+  ADD_PLACE,
   DELETE_PLACE,
 } from "../actions/types.js";
 
@@ -39,6 +40,11 @@ export default function (state = initialState, action) {
       };
     case DELETE_PLACE:
       return _.omit(state, action.payload);
+    case ADD_PLACE:
+      return {
+        ...state,
+        [action.payload.id]: action.payload,
+      };
     default:
       return state;
   }

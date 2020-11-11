@@ -15,7 +15,7 @@ export class PartnersList extends Component {
   render() {
     return (
       <Fragment>
-        <h3>Parnter Auswahl</h3>
+        <h3>Partner Auswahl</h3>
         <table className="table table-striped">
           <thead>
             <tr>

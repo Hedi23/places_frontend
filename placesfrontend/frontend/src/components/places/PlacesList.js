@@ -24,24 +24,22 @@ export class PlacesList extends Component {
               <th>Branch ID</th>
               <th>Street</th>
               <th>PLZ</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.props.places.map((place, index) => (
               <tr key={place.branch_short_name + "-" + index}>
-                <td>{place.branch_short_name}</td>
+                <td>
+                  <Link
+                    to={`/places/${place.partner_short_name}/${place.branch_short_name}`}
+                  >
+                    {place.branch_short_name}
+                  </Link>
+                </td>
                 <td>{place.partner_short_name}</td>
                 <td>{place.branch_number}</td>
                 <td>{place.street}</td>
                 <td>{place.zip_code}</td>
-                <td>
-                  <Link
-                    to={"/places/" + place.branch_short_name}
-                  >
-                    Update
-                  </Link>
-                </td>
               </tr>
             ))}
           </tbody>

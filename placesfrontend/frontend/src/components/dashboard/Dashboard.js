@@ -16,7 +16,6 @@ export class Dashboard extends Component {
   componentDidMount() {
     this.props.getPlacesCount();
     this.props.getLatestImport(GET_LATEST_ORG_IMPORT, 'org-importer');
-    
     this.props.getLatestImport(GET_LATEST_BRA_IMPORT, 'bra-importer');
     this.props.getLatestImport(GET_LATEST_GEO_IMPORT, 'google-geocoding');
   }
