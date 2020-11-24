@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_PARTNERS } from "./types";
+import { GET_PARTNERS, SEARCH_PARTNER } from "./types";
 
 // GET Partners
 export const getPartners = () => (dispatch) => {

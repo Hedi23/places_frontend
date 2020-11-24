@@ -119,7 +119,7 @@ class Branch(models.Model):
     features = models.TextField(blank=True, null=True)  # This field type is a guess.
     marketing_attribute_short_names = models.TextField(blank=True, null=True)  # This field type is a guess.
     marketing_attribute_values = models.TextField(blank=True, null=True)  # This field type is a guess.
-    
+
     class Meta:
         managed = False
         db_table = 'branch'

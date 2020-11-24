@@ -41,7 +41,7 @@ def latest_import(request, contributor):
             lastestorgimport_serializer = BranchImportSerializer(lastestorgimport, many=True)
             return JsonResponse(lastestorgimport_serializer.data, safe=False)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE'])
 def branch_detail(request, branch_short_name):
     # find branch by branch_short_name (id)
     try:
@@ -62,7 +62,7 @@ def branch_detail(request, branch_short_name):
         branch_serializer = BranchSerializer(data=branch_data)
         if branch_serializer.is_valid():
             branch_serializer.save()
-            return JsonResponse(branch_serializer.data, status=status.HTTP_201_CREATED) 
+            return JsonResponse(branch_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(branch_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def branch_from_contributor(request, branch_short_name, contributor):
@@ -81,7 +81,7 @@ def partner_list(request):
     # GET list of partners, POST a new partner, DELETE all partners
 
      if request.method == 'GET':
-        partners = Partner.objects.all()[:10]
+        partners = Partner.objects.all()
         partners_serializer = PartnerSerializer(partners, many=True)
         return JsonResponse(partners_serializer.data, safe=False)
         # 'safe=False' for objects serialization

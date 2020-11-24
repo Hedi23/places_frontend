@@ -2,7 +2,7 @@ import axios from "axios";
 
 import {
   GET_PLACE,
-  ADD_PLACE,
+  EDIT_PLACE,
   DELETE_PLACE,
   GET_PLACE_FROM_ORG,
   GET_PLACE_FROM_BRA,
@@ -23,17 +23,13 @@ export const getPlace = (branch_short_name) => (dispatch) => {
 };
 
 // ADD Place
-export const addPlace = (formValues) => (dispatch) => {
-  axios
-    .post(`/api/places`, { ...formValues })
-    .then((res) => {
-      dispatch({
-        type: ADD_PLACE,
-        payload: res.data,
-      });
-    })
-    .catch((err) => console.log(err));
-  dispatch(reset("placeForm"));
+export const editPlace = (branch_short_name, formValues) => (dispatch) => {
+  axios.post(`/api/places/${branch_short_name}`, { formValues }).then((res) => {
+    dispatch({
+      type: EDIT_PLACE,
+      payload: res.data,
+    });
+  });
 };
 
 // DELETE Place
